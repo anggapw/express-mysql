@@ -63,7 +63,7 @@ module.exports = {
         })
     },
     //getHistoryWatch
-    getHistoryWatch: (req, res) => {
+    getHistory: (req, res) => {
         // query sql
         const myQuery = `SELECT history_watch.id_history, history_watch.id_subscription, history_watch.id_user, users.fullname, history_watch.id_movie, movies.title 
         FROM history_watch
@@ -209,5 +209,99 @@ module.exports = {
                 })
             }
         })
+    },
+    //update
+    updateMovie: (req, res) => {
+        const { id } = req.params;
+        const myQuery = `UPDATE movies SET title=${title}, year=${year}, genre=${genre}, description=${description}, url_trailer=${url_trailer} WHERE id=${id}`;
+        connection.query(myQuery, (error, result) => {
+            if (error) {
+                res.send({
+                    message: 'error',
+                    status: 500
+                })
+            } else {
+                res.send({
+                    message: 'update was successful',
+                    status: 200,
+                    result
+                })
+            }
+        })
+    },
+    updateUser: (req, res) => {
+        const { id } = req.params
+        const myQuery = `UPDATE users SET fullname=${fullname}, username=${username}, email=${email}, password=${hashedPassword}, address=${address} WHERE id=${id}`;
+        connection.query(myQuery, (error, result) => {
+            if (error) {
+                console.log(error)
+                res.send({
+                    message: 'error',
+                    status: 500
+                })
+            } else {
+                res.send({
+                    message: 'data updated',
+                    status: 200,
+                    result
+                })
+            }
+        })
+    },
+    //delete
+    deleteUser: (req,res) => {
+        const {id} = req.params;
+        const myQuery = `DELETE FROM users WHERE id=${id}`
+        connection.query(myQuery, (error,result) => {
+            if(error) {
+                res.send ({
+                    message: "error",
+                    status: 500,
+                })
+            } else {
+                res.send ({
+                    message: 'user deleted',
+                    status: 200,
+                    result
+                })
+            }
+        })
+    },
+    deleteMovie: (req, res) => {
+        const {id} = req.params;
+        const myQuery = `DELETE FROM movies WHERE id=${id}`
+        connection.query(myQuery, (error,result) => {
+            if(error) {
+                res.send ({
+                    message: "error",
+                    status: 500,
+                })
+            } else {
+                res.send ({
+                    message: 'movie deleted',
+                    status: 200,
+                    result
+                })
+            }
+        })
+    },
+    deleteHistory: (req, res) => {
+        const {id} = req.params;
+        const myQuery = `DELETE FROM history_watch WHERE id=${id}`
+        connection.query(myQuery, (error,result) => {
+            if(error) {
+                res.send ({
+                    message: "Error Detected",
+                    status: 500,
+                })
+            } else {
+                res.send ({
+                    message: 'History Deleted',
+                    status: 200,
+                    result
+                })
+            }
+        })
     }
+
 }

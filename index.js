@@ -24,6 +24,6 @@ app.get('/', (req, res) => {
 })
 app.use('/', userRouter)
 
-app.listen(4000, () => {
+app.listen(5000, () => {
     console.log('server berjalan.....')
 })

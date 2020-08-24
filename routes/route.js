@@ -5,21 +5,33 @@ const {
     getAllMovies,
     getAllUsers,
     getSubcription,
-    getHistoryWatch,
+    getHistory,
     addMovie,
     addUser,
     userSubscription,
-    addHistory
+    addHistory,
+    updateMovie,
+    updateUser,
+    deleteMovie,
+    deleteUser,
+    deleteHistory
 } = require('../controllers/controller')
 
 router.get('/movies', getAllMovies);
 router.get('/users', getAllUsers);
 router.get('/subscription', getSubcription);
-router.get('/historywatch', getHistoryWatch);
+router.get('/history', getHistory);
 
-router.post('/movies/add_movie', addMovie);
-router.post('/user/add_user', addUser);
-router.post('/users/subscribe', userSubscription);
-router.post('/add_history', addHistory);
+router.post('/movie/add', addMovie);
+router.post('/user/add', addUser);
+router.post('/subscription/add', userSubscription);
+router.post('/history/add', addHistory);
+
+router.put('/movie/:id', updateMovie);
+router.put('/user/:id', updateUser);
+
+router.delete('/movie/:id', deleteMovie);
+router.delete('/user/:id', deleteUser);
+router.delete('/subscription/:id', deleteHistory);
 
 module.exports = router
